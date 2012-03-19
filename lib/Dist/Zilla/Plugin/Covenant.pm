@@ -41,8 +41,11 @@ use warnings;
 use Moose;
 use Dist::Zilla::File::InMemory;
 
-with 'Dist::Zilla::Role::InstallTool';
-with 'Dist::Zilla::Role::TextTemplate';
+with qw/
+    Dist::Zilla::Role::Plugin
+    Dist::Zilla::Role::InstallTool
+    Dist::Zilla::Role::TextTemplate
+/;
 
 has pledge_file => (
     is => 'ro',
