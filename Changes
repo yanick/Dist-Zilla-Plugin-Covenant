@@ -1,4 +1,5 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Covenant
 
-{{$NEXT}}
-    - release the Kraken!
+0.1.0 2012-03-19
+ - release the Kraken!
+
