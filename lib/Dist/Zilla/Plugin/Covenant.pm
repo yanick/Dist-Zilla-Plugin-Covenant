@@ -43,8 +43,9 @@ use Dist::Zilla::File::InMemory;
 
 with qw/
     Dist::Zilla::Role::Plugin
-    Dist::Zilla::Role::InstallTool
+    Dist::Zilla::Role::FileGatherer
     Dist::Zilla::Role::TextTemplate
+    Dist::Zilla::Role::MetaProvider
 /;
 
 has pledge_file => (
@@ -52,12 +53,13 @@ has pledge_file => (
     default => 'AUTHOR_PLEDGE',
 );
 
-sub setup_installer {
+sub metadata {
     my $self = shift;
+    return { 'x_author_pledge' => { 'version' => 1 } };
+}
 
-    $self->zilla->distmeta->{x_author_pledge} = {
-        version => 1,
-    };
+sub gather_files {
+    my $self = shift;
 
     my $pledge = $self->fill_in_string(
         pledge_template(), {   
@@ -73,6 +75,7 @@ sub setup_installer {
     );
 
     $self->add_file($file);
+    return;
 }
 
 sub pledge_template {
