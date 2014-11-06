@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Move the plugin back into the 'FileGatherer' phase.
+        (GH#1, Apocalypse)
 
 0.1.0     2012-03-19
     - release the Kraken!
