@@ -1,38 +1,9 @@
 package Dist::Zilla::Plugin::Covenant;
+BEGIN {
+  $Dist::Zilla::Plugin::Covenant::AUTHORITY = 'cpan:YANICK';
+}
 # ABSTRACT: add the author's pledge to the distribution
-
-=head1 SYNOPSIS
-
-In dist.ini:
-
-    [Covenant]
-    version = 1
-    pledge_file = AUTHOR_PLEDGE
-
-=head1 DESCRIPTION
-
-C<Dist::Zilla::Plugin::Covenant> adds the file
-'I<AUTHOR_PLEDGE>' to the distribution. The author
-as defined in I<dist.ini> is taken as being the pledgee.
-
-The I<META> file of the distribution is also modified to
-include a I<x_author_pledge> stanza.
-
-=head1 CONFIGURATION OPTIONS
-
-=head2 version
-
-Version of the pledge to use. 
-
-Defaults to '1'.
-
-=head2 pledge_file
-
-Name of the file holding the pledge.
-
-Defaults to 'AUTHOR_PLEDGE'.
-
-=cut
+$Dist::Zilla::Plugin::Covenant::VERSION = '0.1.1';
 
 
 use strict;
@@ -99,3 +70,61 @@ END_PLEDGE
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Dist::Zilla::Plugin::Covenant - add the author's pledge to the distribution
+
+=head1 VERSION
+
+version 0.1.1
+
+=head1 SYNOPSIS
+
+In dist.ini:
+
+    [Covenant]
+    version = 1
+    pledge_file = AUTHOR_PLEDGE
+
+=head1 DESCRIPTION
+
+C<Dist::Zilla::Plugin::Covenant> adds the file
+'I<AUTHOR_PLEDGE>' to the distribution. The author
+as defined in I<dist.ini> is taken as being the pledgee.
+
+The I<META> file of the distribution is also modified to
+include a I<x_author_pledge> stanza.
+
+=head1 CONFIGURATION OPTIONS
+
+=head2 version
+
+Version of the pledge to use. 
+
+Defaults to '1'.
+
+=head2 pledge_file
+
+Name of the file holding the pledge.
+
+Defaults to 'AUTHOR_PLEDGE'.
+
+=head1 AUTHOR
+
+Yanick Champoux <yanick@babyl.dyndns.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Yanick Champoux.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
