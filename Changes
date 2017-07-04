@@ -1,7 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-    - misc minor refactoring.
  [API CHANGES]
 
  [BUG FIXES]
@@ -14,6 +13,12 @@ Revision history for {{$dist->name}}
 
  [STATISTICS]
 
+0.1.2 2017-07-04
+ - misc minor refactoring.
+
+ [STATISTICS]
+ - code churn: 6 files changed, 120 insertions(+), 29 deletions(-)
+
 0.1.1 2014-11-06
  - Move the plugin back into the 'FileGatherer' phase. (GH#1, Apocalypse)
 
@@ -22,4 +27,3 @@ Revision history for {{$dist->name}}
 
 0.1.0 2012-03-19
  - release the Kraken!
-
