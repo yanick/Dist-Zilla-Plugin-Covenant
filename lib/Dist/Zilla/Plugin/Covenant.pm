@@ -12,8 +12,8 @@ In dist.ini:
 =head1 DESCRIPTION
 
 C<Dist::Zilla::Plugin::Covenant> adds the file
-'I<AUTHOR_PLEDGE>' to the distribution. The author
-as defined in I<dist.ini> is taken as being the pledgee.
+'I<AUTHOR_PLEDGE>' to the distribution. The author(s)
+as defined in I<dist.ini> is taken as being the pledgee(s).
 
 The I<META> file of the distribution is also modified to
 include a I<x_author_pledge> stanza.
@@ -24,7 +24,7 @@ include a I<x_author_pledge> stanza.
 
 Version of the pledge to use. 
 
-Defaults to '1'.
+Defaults to '1' (the only version currently existing).
 
 =head2 pledge_file
 
@@ -35,7 +35,7 @@ Defaults to 'AUTHOR_PLEDGE'.
 =cut
 
 
-use strict;
+use 5.20.0;
 use warnings;
 
 use Moose;
@@ -48,34 +48,44 @@ with qw/
     Dist::Zilla::Role::MetaProvider
 /;
 
+use experimental 'signatures';
+
 has pledge_file => (
-    is => 'ro',
+    is      => 'ro',
     default => 'AUTHOR_PLEDGE',
 );
 
 sub metadata {
-    my $self = shift;
     return { 'x_author_pledge' => { 'version' => 1 } };
 }
 
-sub gather_files {
-    my $self = shift;
+has '+zilla' => (
+    handles => { 
+        distribution_name => 'name',
+        authors           => 'authors',
+    }
+);
 
-    my $pledge = $self->fill_in_string(
-        pledge_template(), {   
-            distribution        => $self->zilla->name,
-            author => join( ', ', @{ $self->zilla->authors } ),
-        }
-    );
+has pledge => (
+    is => 'ro',
+    lazy => 1,
+    default => sub($self) {
+        $self->fill_in_string(
+            pledge_template(), {   
+                distribution => $self->distribution_name,
+                author       => join ', ', @{ $self->authors },
+            }
+        );
+    },
+);
 
-    my $file = Dist::Zilla::File::InMemory->new({ 
-            content => $pledge,
+sub gather_files ($self) {
+    $self->add_file(
+        Dist::Zilla::File::InMemory->new({ 
+            content => $self->pledge,
             name    => $self->pledge_file,
-        }
+        })
     );
-
-    $self->add_file($file);
-    return;
 }
 
 sub pledge_template {
@@ -97,5 +107,5 @@ END_PLEDGE
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+
 1;
