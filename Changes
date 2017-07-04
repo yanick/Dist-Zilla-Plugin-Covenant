@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - misc minor refactoring.
  [API CHANGES]
 
  [BUG FIXES]
