@@ -15,7 +15,6 @@ on 'test' => sub {
   requires "IPC::Open3" => "0";
   requires "Test::DZil" => "0";
   requires "Test::More" => "0";
-  requires "blib" => "1.01";
   requires "strict" => "0";
 };
 
