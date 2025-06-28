@@ -1,0 +1,31 @@
+name: CI 
+on:
+  push:
+    branches:
+      - main 
+      - releases 
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  perl:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        perl-version:
+          - 'latest'
+
+    container:
+      image: perl:${{ matrix.perl-version }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: perl -V
+        run: perl -V
+      - uses: perl-actions/ci-perl-tester-helpers/install-test-helper-deps@main
+      - uses: perl-actions/ci-perl-tester-helpers/cpan-install-build-deps@main
+      - uses: perl-actions/ci-perl-tester-helpers/build-dist@main
+      - uses: perl-actions/ci-perl-tester-helpers/cpan-install-dist-deps@main
+      - uses: perl-actions/ci-perl-tester-helpers/test-dist@main
+        env:
+          AUTHOR_TESTING: 1
