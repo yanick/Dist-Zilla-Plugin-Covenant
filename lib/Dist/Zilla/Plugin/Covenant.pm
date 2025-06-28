@@ -34,7 +34,6 @@ Defaults to 'AUTHOR_PLEDGE'.
 
 =cut
 
-
 use 5.20.0;
 use warnings;
 
