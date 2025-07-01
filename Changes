@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
  [API CHANGES]
 
  [BUG FIXES]
+ - Move to Test2::V0.
 
  [DOCUMENTATION]
 
